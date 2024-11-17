@@ -27,14 +27,14 @@ user_dependency = Annotated[User, Depends(get_current_user)]
 
 # Get all areas
 @router.get("/", response_model=list[AreaOut])
-async def get_areas(db: Session = Depends(db_dependency)):
+async def get_areas(db: db_dependency):
     areas = db.query(Area).all()
     return areas
 
 
 # Get categories by area
 @router.get("/{area_id}/categories", response_model=list[CategoryOut])
-async def get_categories_by_area(area_id: int, db: Session = Depends(db_dependency)):
+async def get_categories_by_area(area_id: int, db: db_dependency):
     categories = db.query(Category).filter(Category.area_id == area_id).all()
     return categories
 
@@ -42,8 +42,8 @@ async def get_categories_by_area(area_id: int, db: Session = Depends(db_dependen
 @router.get("/{area_id}/items", response_model=list[CategoryWithItemsOut])
 async def get_items_by_area(
     area_id: int,
-    db: Session = Depends(db_dependency),
-    user: User = Depends(user_dependency),
+    db: db_dependency,
+    user: user_dependency,
 ):
 
     # Query items and their categories
