@@ -124,4 +124,4 @@ async def delete_item(item_id: int, db: db_dependency, user: user_dependency):
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     db.delete(item)
-    db.commit
+    db.commit()
